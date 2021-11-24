@@ -104,16 +104,16 @@
 
                     <div>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Host or IP address"
+                            <input id="execHost" type="text" class="form-control" placeholder="Host or IP address"
                                 aria-label="Host or IP address">
-                            <select class="form-select" aria-label="Default select example" style="max-width:200px;">
+                            <select id="execCmd" class="form-select" aria-label="Default select example" style="max-width:200px;">
                                 <option value="ping">ping</option>
                                 <option value="ping6">ping6</option>
                                 <option value="traceroute">traceroute</option>
                                 <option value="traceroute6">traceroute6</option>
                             </select>
                             <button class="btn btn-primary" type="button" style="width:100%;max-width:150px;"
-                                onclick="handleRunTest(self);">Begin</button>
+                                onclick="handleRunTest();">Begin</button>
                         </div>
 
                         <div class="collapse" id="testRunCollapse">
@@ -141,6 +141,24 @@
                 var x = new bootstrap.Collapse(testRunCollapse);
             }
 
+            // Read the command data
+            var host = document.getElementById("execHost").value;
+            var command = document.getElementById("execCmd").value;
+
+            // Handle empty host
+            if (host == "") {
+                document.getElementById("serverCommandResponse").innerHTML = "Please enter a host or IP address.";
+                return;
+            }
+
+            // Send a request to the server, and put the output in the output panel
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", `/exec/${command}/${host}`, true);
+            xhr.onreadystatechange = function () {
+                var output = document.getElementById("serverCommandResponse");
+                output.innerText = this.responseText;
+            };
+            xhr.send();
         }
     </script>
 

@@ -2,7 +2,7 @@ body {
   margin: 0 !important;
   background: linear-gradient(45deg, #1b023d, #5c1ea3);
   background-repeat: no-repeat;
-  background-size: 100vw 100vh;
+  background-size: 100vw 100%;
   font-family: Comfortaa;
   min-height: 100vh;
 }

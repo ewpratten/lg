@@ -117,7 +117,8 @@ async fn main() {
                 routes::index::index,
                 routes::static_data::static_data,
                 routes::test_data::test_files_10m,
-                routes::test_data::test_files_100m
+                routes::test_data::test_files_100m,
+                routes::exec::exec_command 
             ],
         )
         .manage(local_config)
