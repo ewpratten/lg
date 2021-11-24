@@ -1,3 +1,14 @@
 {
-    "instances":[]
+    "instances":[
+        {
+            "location_name": "Quebec",
+            "country_code": "ca",
+            "host": "https://example.com"
+        },
+        {
+            "location_name": "London",
+            "country_code": "gb",
+            "host": "https://example.com"
+        }
+    ]
 }

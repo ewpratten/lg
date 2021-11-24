@@ -1,6 +1,6 @@
 {
     "title": "ewpratten/lg",
-    "subtitle": "Example Instance",
-    "country_code": "CA",
+    "subtitle": "<i class=\"fas fa-globe\"></i> Example Instance",
+    "country_code": "ca",
     "location_name": "Toronto"
 }
