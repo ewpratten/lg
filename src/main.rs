@@ -66,7 +66,10 @@
 
 use clap::{crate_authors, crate_description, crate_name, crate_version, App, Arg};
 
+use crate::public_ip::PublicIpPair;
+
 mod configs;
+mod public_ip;
 mod routes;
 
 #[macro_use]
@@ -110,10 +113,16 @@ async fn main() {
     rocket::build()
         .mount(
             "/",
-            routes![routes::index::index, routes::static_data::static_data],
+            routes![
+                routes::index::index,
+                routes::static_data::static_data,
+                routes::test_data::test_files_10m,
+                routes::test_data::test_files_100m
+            ],
         )
         .manage(local_config)
         .manage(global_config)
+        .manage(PublicIpPair::new().await)
         .launch()
         .await
         .unwrap();
