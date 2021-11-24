@@ -42,3 +42,16 @@ h6 {
 #your-ip-info {
     color:white;
 }
+
+#testRunCollapse {
+    background-color: #272822;
+    margin:5px;
+    margin-top: 10px;
+    border-radius: 5px;
+    color: white;
+    padding:15px;
+}
+
+#testRunCollapse pre {
+    margin:0;
+}
