@@ -106,7 +106,8 @@
                         <div class="input-group">
                             <input id="execHost" type="text" class="form-control" placeholder="Host or IP address"
                                 aria-label="Host or IP address">
-                            <select id="execCmd" class="form-select" aria-label="Default select example" style="max-width:200px;">
+                            <select id="execCmd" class="form-select" aria-label="Default select example"
+                                style="max-width:200px;">
                                 <option value="ping">ping</option>
                                 <option value="ping6">ping6</option>
                                 <option value="traceroute">traceroute</option>
@@ -116,13 +117,19 @@
                                 onclick="handleRunTest();">Begin</button>
                         </div>
 
-                        <div class="collapse" id="testRunCollapse">
+                        <div class="collapse backshadow" id="testRunCollapse">
                             <pre id="serverCommandResponse"></pre>
                         </div>
                     </div>
-
                 </div>
             </div>
+            <br>
+            <div style="text-align: center;">
+                <a href="https://github.com/ewpratten/lg" style="color:white; text-decoration:none;">
+                    <i class="fab fa-github"></i> ewpratten/lg
+                </a>
+            </div>
+            <br>
         </div>
     </div>
 
