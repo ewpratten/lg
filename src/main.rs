@@ -1,4 +1,3 @@
-#![doc = include_str!("../README.md")]
 #![deny(unsafe_code)]
 #![warn(
     clippy::all,
@@ -64,3 +63,52 @@
     nonstandard_style,
     rust_2018_idioms
 )]
+
+use clap::{crate_authors, crate_description, crate_name, crate_version, App, Arg};
+
+mod configs;
+mod routes;
+
+#[macro_use]
+extern crate rocket;
+
+#[macro_use]
+extern crate serde;
+
+#[tokio::main]
+async fn main() {
+    let matches = App::new(crate_name!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .version(crate_version!())
+        .arg(
+            Arg::with_name("local_config")
+                .takes_value(true)
+                .help("Config file specific to this instance")
+                .required(true),
+        )
+        .arg(
+            Arg::with_name("global_config")
+                .takes_value(true)
+                .help("Config file shared between instances")
+                .required(false),
+        )
+        .get_matches();
+
+    // Load the config files
+    let local_config: configs::LocalConfig =
+        autojson::structify(&matches.value_of("local_config").unwrap()).unwrap();
+    let global_config: configs::InstanceListingConfig =
+        if let Some(path) = matches.value_of("global_config") {
+            autojson::structify(path).unwrap()
+        } else {
+            configs::InstanceListingConfig::default()
+        };
+
+    // Start the server
+    rocket::build()
+        .mount("/", routes![routes::index::index])
+        .launch()
+        .await
+        .unwrap();
+}
