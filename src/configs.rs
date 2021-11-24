@@ -1,7 +1,7 @@
 //! This module defines the structures backing the app config files.
 
 /// The "local config" contains data specific to this instance
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct LocalConfig {
     /// The page title
     pub title: String,
@@ -14,7 +14,7 @@ pub struct LocalConfig {
 }
 
 /// Used in the instance listing config
-#[derive(Debug, Deserialize, Default)]
+#[derive(Debug, Deserialize, Default, Serialize)]
 pub struct Instance {
     /// The location name of this instance
     pub location_name: String,
@@ -25,9 +25,9 @@ pub struct Instance {
 }
 
 
-/// The "listing config" contains data that can be shared between multiple running instances
-#[derive(Debug, Deserialize, Default)]
-pub struct InstanceListingConfig {
+/// The "global config" contains data that can be shared between multiple running instances
+#[derive(Debug, Deserialize, Default, Serialize)]
+pub struct GlobalConfig {
     /// All instances
     pub instances: Vec<Instance>,
 }

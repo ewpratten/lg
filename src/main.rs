@@ -98,16 +98,22 @@ async fn main() {
     // Load the config files
     let local_config: configs::LocalConfig =
         autojson::structify(&matches.value_of("local_config").unwrap()).unwrap();
-    let global_config: configs::InstanceListingConfig =
-        if let Some(path) = matches.value_of("global_config") {
-            autojson::structify(path).unwrap()
-        } else {
-            configs::InstanceListingConfig::default()
-        };
+    let global_config: configs::GlobalConfig = if let Some(path) = matches.value_of("global_config")
+    {
+        autojson::structify(path).unwrap()
+    } else {
+        configs::GlobalConfig::default()
+    };
 
     // Start the server
+    // Also, add some data (like the configs) to the state for render fns to read from
     rocket::build()
-        .mount("/", routes![routes::index::index])
+        .mount(
+            "/",
+            routes![routes::index::index, routes::static_data::static_data],
+        )
+        .manage(local_config)
+        .manage(global_config)
         .launch()
         .await
         .unwrap();

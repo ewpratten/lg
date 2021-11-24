@@ -1,6 +1,7 @@
 //! Defines all web routes
 
 pub mod index;
+pub mod static_data;
 
 /// Used to pack all assets into the production binary at build time
 #[derive(rust_embed::RustEmbed)]
