@@ -11,6 +11,10 @@ pub struct LocalConfig {
     pub country_code: String,
     /// The location name of this instance
     pub location_name: String,
+    /// Override for the IPv4 address
+    pub ipv4_override: Option<String>,
+    /// Override for the IPv6 address
+    pub ipv6_override: Option<String>,
 }
 
 /// Used in the instance listing config

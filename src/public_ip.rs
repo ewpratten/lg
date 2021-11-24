@@ -8,16 +8,20 @@ pub struct PublicIpPair {
 
 impl PublicIpPair {
     /// Construct a new `PublicIpPair`
-    pub async fn new() -> Self {
+    pub async fn new(ipv4_override: Option<String>, ipv6_override: Option<String>) -> Self {
         Self {
-            ipv4: public_ip::addr_v4()
-                .await
-                .map(|a| a.to_string())
-                .unwrap_or("N/A".to_string()),
-            ipv6: public_ip::addr_v6()
-                .await
-                .map(|a| a.to_string())
-                .unwrap_or("N/A".to_string()),
+            ipv4: ipv4_override.unwrap_or(
+                public_ip::addr_v4()
+                    .await
+                    .map(|a| a.to_string())
+                    .unwrap_or("N/A".to_string()),
+            ),
+            ipv6: ipv6_override.unwrap_or(
+                public_ip::addr_v6()
+                    .await
+                    .map(|a| a.to_string())
+                    .unwrap_or("N/A".to_string()),
+            ),
         }
     }
 }

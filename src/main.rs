@@ -118,12 +118,18 @@ async fn main() {
                 routes::static_data::static_data,
                 routes::test_data::test_files_10m,
                 routes::test_data::test_files_100m,
-                routes::exec::exec_command 
+                routes::exec::exec_command
             ],
+        )
+        .manage(
+            PublicIpPair::new(
+                local_config.ipv4_override.clone(),
+                local_config.ipv6_override.clone(),
+            )
+            .await,
         )
         .manage(local_config)
         .manage(global_config)
-        .manage(PublicIpPair::new().await)
         .launch()
         .await
         .unwrap();
